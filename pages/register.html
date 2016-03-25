@@ -1,34 +1,73 @@
+<style type="text/css">
+   .group .g_input .ng-invalid{border: 2px solid red}
+   .group .g_input .ng-valid{border: 2px solid green}
+   .pop_bg, .share{display: block;}
+/*   .group .g_input .ng-dirty{border: 2px solid blue}*/
+</style>
+
 <div class="wrap warp2">
-    <div class="sign">    
-        <form id="upload_img" role="form" name="myForm" ng-submit="submitForm(myForm.$valid)" novalidate>
+    <div ng-show="isForm" class="sign">    
+        <form id="upload_img" role="form" 
+        name="myForm" 
+        ng-submit="submitForm(myForm.$valid)" 
+        novalidate>
+            <!-- novalidate屏蔽浏览器对表单的默认验证行为 --> 
 
             <div class="group">
                 <label class="label" for="qufu">区服：</label>
                 <div class="g_input">
-                    <input type="text" class="input" name="qufu" ng-model="user.qufu" required>
-                    <span ng-show="myForm.qufu.$dirty && myForm.qufu.$valid">填写正确</span>
+                    <input type="text" class="input" 
+                    name="qufu" 
+                    ng-minlength="2"  
+                    ng-model="user.qufu" 
+                    required>
+                    <!--span ng-show="myForm.qufu.$dirty && myForm.qufu.$valid">填写正确</span-->
+                    <div class="error" ng-show="myForm.qufu.$dirty && myForm.qufu.$invalid">
+                        <small class="error" ng-show="myForm.qufu.$error.required">請填寫你的區服</small>
+                        <small class="error" ng-show="myForm.qufu.$error.minlength">你的區服名至少于2個字符</small>
+                    </div>
                 </div>
             </div>
+            
+        
             <div class="group">
                 <label class="label" for="userName">角色名：</label>
                 <div class="g_input">
-                    <input type="text" class="input" ng-model="user.name" minlength="2" required >
+                    <input type="text" class="input" name="username" ng-model="user.username" ng-minlength="2" ng-maxlength="8" required >
+                    <div class="error" ng-show="myForm.username.$dirty && myForm.username.$invalid">
+                        <span class="error" ng-show="myForm.username.$error.required">請填寫角色服</span>
+                        <span class="error" ng-show="myForm.username.$error.minlength">您的角色名至少大于2</span>
+                        <span class="error" ng-show="myForm.username.$error.maxlength">您的角色名不能大于8個字符</span>
+                    </div>
                 </div>
             </div>
+            
+
+
             <div style="height:70px;" class="group">
                 <label class="label" for="Fighting">战  力：</label>
                 <div class="g_input">
-                    <input type="number" class="input" name='fighting' ng-model="user.fighting" ng-minlength="5" ng-maxlength="20" required >
-                </div>
-                <span class="error" ng-show="form.fighting.$dirty && form.fighting.$invalid">填写不正确</span>
-    
+                    <input type="number" class="input" name='fighting' ng-model="user.fighting" ng-minlength="3" ng-maxlength="10" required>
+                    <div ng-show="myForm.fighting.$dirty && myForm.fighting.$invalid">
+                        <span ng-show="myForm.fighting.$error.required">請填寫戰備</span> 
+                        <span ng-show="myForm.fighting.$error.minlength">戰略至少大于3</span> 
+                        <span ng-show="myForm.fighting.$error.maxlength">戰略不能大于10</span> 
+                    </div>
+                </div> 
             </div>
             <div class="group">
                 <label class="label" for="qq">QQ号：</label>
                 <div class="g_input">
-                    <input type="number" class="input" ng-model="user.qq" ng-minlength="5" required >
+                    <input type="number" class="input" name="qq" ng-model="user.qq" ng-minlength="5" ng-maxlength="13" required >
+                    <div class="error" ng-show="myForm.qq.$dirty && myForm.qq.$invalid">
+                        <span ng-show="myForm.qq.$error.required">請填寫QQ號碼</span>
+                        <span ng-show="myForm.qq.$error.minlength">QQ號碼至少大于5位數吧</span>
+                        <span ng-show="myForm.qq.$error.maxlength">QQ號碼不能大于13位吧</span>
+                    </div>
                 </div>
             </div>
+
+            <!--
             <div class="group">
                 <label class="label" for="gImg">幻兽截图：</label>
                 <div class="g_input">
@@ -39,16 +78,16 @@
 
                 </div>
             </div>
+            -->
             <div class="cl" id="preview">
                 <img ng-src="{{ imgSrc }}"/>
-            </div>
-            <input class="submit_btn" ng-disabled="myForm.$invalid" type="submit" value="提交">
+            </div>             
 
-            <!-- <a ng-click="getFormStatus()" class="submit_btn" href="javascript:void(0)">确认提交</a> -->
+            <input class="submit_btn" ng-disabled="myForm.$invalid" type="submit" value="提交">
         </form>
     </div>
 
-    <div  id="userInfo">
+    <div ng-hide="isShow" id="userInfo">
         <div class="user_info">
             <dl>
                 <dt>区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服：</dt>
@@ -56,7 +95,7 @@
             </dl>
             <dl>
                 <dt>角&nbsp;&nbsp;&nbsp;色&nbsp;&nbsp;&nbsp;名：</dt>
-                <dd> {{ user.name }} </dd>
+                <dd> {{ user.username }} </dd>
             </dl>
             <dl>
                 <dt>战&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;力：</dt>
@@ -68,8 +107,13 @@
             <div class="and"></div>
         </div>
         <div class="btnBox">
-            <a class="ranBtn" href="javascript:;">我要晒排行</a>
-            <a class="back" href="/">返回首页</a>
+            <a class="ranBtn" ng-click="share()" href="javascript:;">我要晒排行</a>
+            <a class="back" href="#/index">返回首页</a>
         </div>
     </div>
 </div>
+<div ng-hide="isShare" ng-click="share()" class="share">
+     <img id="shareImg" src="public/images/share.png">
+</div>
+<div ng-hide="isShare" ng-click="share()" class='pop_bg'></div>
+ 
