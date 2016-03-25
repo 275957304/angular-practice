@@ -1,0 +1,75 @@
+<div class="wrap warp2">
+    <div class="sign">    
+        <form id="upload_img" role="form" name="myForm" ng-submit="submitForm(myForm.$valid)" novalidate>
+
+            <div class="group">
+                <label class="label" for="qufu">区服：</label>
+                <div class="g_input">
+                    <input type="text" class="input" name="qufu" ng-module="user.qufu" required>
+                    <span ng-show="myForm.qufu.$dirty && myForm.qufu.$valid">填写正确</span>
+                </div>
+            </div>
+            <div class="group">
+                <label class="label" for="userName">角色名：</label>
+                <div class="g_input">
+                    <input type="text" class="input" ng-module="user.name" minlength="2" required >
+                </div>
+            </div>
+            <div style="height:70px;" class="group">
+                <label class="label" for="Fighting">战  力：</label>
+                <div class="g_input">
+                    <input type="number" class="input" name='fighting' ng-module="user.fighting" ng-minlength="5" ng-maxlength="20" required >
+                </div>
+                <span class="error" ng-show="form.fighting.$dirty && form.fighting.$invalid">填写不正确</span>
+    
+            </div>
+            <div class="group">
+                <label class="label" for="qq">QQ号：</label>
+                <div class="g_input">
+                    <input type="number" class="input" ng-module="user.qq" ng-minlength="5" required >
+                </div>
+            </div>
+            <div class="group">
+                <label class="label" for="gImg">幻兽截图：</label>
+                <div class="g_input">
+                    <label for="upimg">
+                        <a id="imgBtn" class="f_up" href="javascript:;">点击上传</a>
+                        <input  class="file" id="upimg" type="file" name="file">
+                    </label>
+
+                </div>
+            </div>
+            <div class="cl" id="preview">
+                <img ng-src="{{ imgSrc }}"/>
+            </div>
+            <input class="submit_btn" ng-disabled="myForm.$invalid" type="submit" value="提交">
+
+            <!-- <a ng-click="getFormStatus()" class="submit_btn" href="javascript:void(0)">确认提交</a> -->
+        </form>
+    </div>
+
+    <div  id="userInfo">
+        <div class="user_info">
+            <dl>
+                <dt>区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服：</dt>
+                <dd> {{ user.qufu }} </dd>
+            </dl>
+            <dl>
+                <dt>角&nbsp;&nbsp;&nbsp;色&nbsp;&nbsp;&nbsp;名：</dt>
+                <dd> {{ user.name }} </dd>
+            </dl>
+            <dl>
+                <dt>战&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;力：</dt>
+                <dd> {{ user.fighting }} </dd>
+            </dl>
+            <div class="listPic">
+                <img ng-src="{{ imgSrc }}"/>
+            </div>
+            <div class="and"></div>
+        </div>
+        <div class="btnBox">
+            <a class="ranBtn" href="javascript:;">我要晒排行</a>
+            <a class="back" href="/">返回首页</a>
+        </div>
+    </div>
+</div>

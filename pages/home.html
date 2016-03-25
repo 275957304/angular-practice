@@ -1,0 +1,39 @@
+<div class="wrap">
+    <h2 class="top">全服争霸赛</h2>
+    <div class="tit">
+        <p id="gx">下次更新时间为：{{ show_date }}</p>
+    </div>
+    <div class="rank">
+        <div class="thead">
+            <span class="r1">排名</span>
+            <span class="r2">区服</span>
+            <span class="r3">角色名</span>
+            <span class="r4">战力</span>
+            <span class="r5">属性</span>
+        </div>
+        <ul id="rankList"> 
+            <li ng-repeat="rank in list">
+                <span class="r1"> {{$index + 1}} </span>
+                <span class="r2"> {{rank.server_name}} </span>
+                <span class="r3"> {{rank.role_name}} </span>
+                <span class="r4"> {{rank.power}} </span>
+                <span class="r5"> {{rank.status}}</span>
+            </li>
+        </ul>
+    </div>
+    <a class="btn signUp" href="#/register">我要报名</a>
+    <div class="pt">
+        <div class="pt_t">活动规则</div>
+        <div class="pt_info">
+            <p><em>1.</em>亲爱的大侠，请按要求填写你的游戏 信息，并上传角色页面截图（点击人物头像—选择角色页面），以便我们核对您的战力。<a class="sl" href="#">示例图</a></p>
+            <p><em>2.</em>每期活动时活动长为1周，本排行榜每周更新1次。</p>
+        </div>
+    </div>
+
+    <div class="pt">
+        <div class="pt_t">活动奖励</div>
+        <div class="pt_info">
+            <p>每期排行榜前十的大侠，均能获得游戏全服跑马灯宣传的机会，还有机会获得官方专访，让你名震江湖！</p>
+        </div>
+    </div>
+</div>
