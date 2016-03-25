@@ -23,24 +23,24 @@ myController.controller('mainController',function($scope,$http){
 })
 
 myController.controller('registerShow',function($scope){
-    //$scope.userinfo = false;  //56
-    //$scope.imgSrc = 'http://hdcdn.vxinyou.com//upload/20160324/20160324172648_292.jpg';
-
-    $scope.submitForm = function(isValid){
-        if(!isValid){
-            console.log('验证成功');
+    $scope.isForm = true;
+    $scope.isShow = true;
+    $scope.isShare = true;
+    $scope.imgSrc = 'http://hdcdn.vxinyou.com//upload/20160324/20160324172648_292.jpg';
+    $scope.submitForm = function(){
+        //console.log($scope.form)
+        if($scope.myForm.$valid){  //myForm表單的name
+            console.log("验证通过");
+            $scope.isShow = !$scope.isShow;
+            $scope.isForm = false;
+            //$scope.userinfo = false;
         }else{
-            console.log('失败')
+            alert("验证没-----通过")
         }
+    };
+    $scope.share = function(){
+        $scope.isShare = !$scope.isShare;
+        console.log("顯示分享")
     }
-
-    // $scope.submitForm = function(){
-    //     console.log($scope.form)
-    //     if($scope.form.$valid){
-    //         alert("验证通过")
-    //     }else{
-    //         alert("验证没-----通过")
-    //     }
-    // }
 
 })
