@@ -35,7 +35,7 @@ myController.controller('registerShow',function($scope){
             $scope.isForm = false;
             //$scope.userinfo = false;
         }else{
-            alert("验证没-----通过")
+            alert("亲，请填写资料！！！")
         }
     };
     $scope.share = function(){
